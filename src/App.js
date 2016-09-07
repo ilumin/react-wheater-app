@@ -46,6 +46,10 @@ class App extends Component {
     });
   };
 
+  onPlotClick = (data) => {
+    console.log(data);
+  };
+
   render() {
     var currentTemp = 'not loaded yet';
     if (this.state.data.list) {
@@ -75,6 +79,7 @@ class App extends Component {
             <Plot
               xData={this.state.dates}
               yData={this.state.temps}
+              onPlotClick={this.onPlotClick}
               type="scatter"
             />
           </div>
