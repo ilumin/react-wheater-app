@@ -39,7 +39,11 @@ class App extends Component {
       self.setState({
         data: body,
         dates: dates,
-        temps: temps
+        temps: temps,
+        selected: {
+          date: '',
+          temp: null
+        }
       });
     });
   };
