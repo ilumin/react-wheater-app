@@ -9,7 +9,18 @@ class App extends Component {
 
   fetchData = (event) => {
     event.preventDefault();
-    console.log('fetch data for', this.state.location);
+    var location = encodeURIComponent(this.state.location);
+    var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
+    var urlSuffix = '&APPID=093ff3b8482fa6f460bbf58e0544535a&units=metric';
+    var url = urlPrefix + location + urlSuffix;
+
+    xhr({
+      url: url
+    }, function (err, data) {
+      self.setState({
+        data: JSON.parse(data.body)
+      });
+    });
   };
 
   changeLocation = (event) => {
