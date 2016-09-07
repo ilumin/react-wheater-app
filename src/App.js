@@ -9,7 +9,7 @@ class App extends Component {
 
   fetchData = (event) => {
     event.preventDefault();
-    console.log('fetch data!');
+    console.log('fetch data for', this.state.location);
   };
 
   changeLocation = (event) => {
