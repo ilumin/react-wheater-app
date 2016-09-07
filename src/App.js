@@ -5,14 +5,13 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <h1>Weather</h1>
+        <form>
+          <label>I want to know the weather for
+            <input placeholder={"City, Country"} type="text" />
+          </label>
+        </form>
       </div>
     );
   }
