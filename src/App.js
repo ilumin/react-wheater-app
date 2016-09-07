@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import xhr from 'xhr';
 
+import Plot from './Plot.js';
+
 class App extends Component {
   state = {
     location: '',
-    data: {}
+    data: {},
+    dates: [],
+    temps: []
   };
 
   fetchData = (event) => {
@@ -19,8 +23,19 @@ class App extends Component {
     xhr({
       url: url
     }, function (err, data) {
+      var body = JSON.parse(data.body);
+      var list = body.list;
+      var dates = [];
+      var temps = [];
+      for (var i = 0; i < list.length; i++) {
+        dates.push(list[i].dt_txt);
+        temps.push(list[i].main.temp);
+      }
+
       self.setState({
-        data: JSON.parse(data.body)
+        data: body,
+        dates: dates,
+        temps: temps
       });
     });
   };
@@ -50,10 +65,20 @@ class App extends Component {
               />
           </label>
         </form>
-        <p className="temp-wrapper">
-          <span className="temp">{ currentTemp }</span>
-          <span className="temp-symbol">°C</span>
-        </p>
+        {(this.state.data.list) ? (
+          <div className="wrapper">
+            <p className="temp-wrapper">
+              <span className="temp">{ currentTemp }</span>
+              <span className="temp-symbol">°C</span>
+            </p>
+            <h2>Forecast</h2>
+            <Plot
+              xData={this.state.dates}
+              yData={this.state.temps}
+              type="scatter"
+            />
+          </div>
+        ): null}
       </div>
     );
   }
