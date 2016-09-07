@@ -4,7 +4,8 @@ import xhr from 'xhr';
 
 class App extends Component {
   state = {
-    location: ''
+    location: '',
+    data: {}
   };
 
   fetchData = (event) => {
