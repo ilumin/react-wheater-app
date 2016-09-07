@@ -14,6 +14,7 @@ class App extends Component {
     var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
     var urlSuffix = '&APPID=093ff3b8482fa6f460bbf58e0544535a&units=metric';
     var url = urlPrefix + location + urlSuffix;
+    var self = this;
 
     xhr({
       url: url
@@ -31,6 +32,11 @@ class App extends Component {
   };
 
   render() {
+    var currentTemp = 'not loaded yet';
+    if (this.state.data.list) {
+      currentTemp = this.state.data.list[0].main.temp;
+    }
+
     return (
       <div>
         <h1>Weather</h1>
@@ -44,6 +50,10 @@ class App extends Component {
               />
           </label>
         </form>
+        <p className="temp-wrapper">
+          <span className="temp">{ currentTemp }</span>
+          <span className="temp-symbol">°C</span>
+        </p>
       </div>
     );
   }
