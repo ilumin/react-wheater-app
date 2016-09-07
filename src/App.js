@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import xhr from 'xhr';
 
 class App extends Component {
   state = {
