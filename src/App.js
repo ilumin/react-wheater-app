@@ -9,7 +9,11 @@ class App extends Component {
     location: '',
     data: {},
     dates: [],
-    temps: []
+    temps: [],
+    selected: {
+      date: '',
+      temp: null
+    }
   };
 
   fetchData = (event) => {
@@ -47,7 +51,14 @@ class App extends Component {
   };
 
   onPlotClick = (data) => {
-    console.log(data);
+    if (data.points) {
+      this.setState({
+        selected: {
+          date: data.points[0].x,
+          temp: data.points[0].y
+        }
+      });
+    }
   };
 
   render() {
