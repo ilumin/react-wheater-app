@@ -86,13 +86,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    location: state.location,
-    selected: state.selected,
-    data: state.data,
-    dates: state.dates,
-    temps: state.temps,
-  }
+  return state.toJS()
 }
 
 export default connect(mapStateToProps)(App);
