@@ -56,11 +56,11 @@ export function fetchData(url) {
         temps.push(list[i].main.temp);
       }
 
-      self.props.dispatch(setData(body));
-      self.props.dispatch(setDates(dates));
-      self.props.dispatch(setTemps(temps));
-      self.props.dispatch(setSelectedDate(''));
-      self.props.dispatch(setSelectedTemp(null));
+      dispatch(setData(body));
+      dispatch(setDates(dates));
+      dispatch(setTemps(temps));
+      dispatch(setSelectedDate(''));
+      dispatch(setSelectedTemp(null));
     });
   }
 }
