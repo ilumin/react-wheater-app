@@ -29,6 +29,18 @@ export default function mainReducer(state = initState, action) {
           temp: state.selected.temp
         }
       });
+    case 'SET_DATA':
+      return Object.assign({}, state, {
+        data: action.data
+      });
+    case 'SET_DATES':
+      return Object.assign({}, state, {
+        dates: action.dates
+      });
+    case 'SET_TEMPS':
+      return Object.assign({}, state, {
+        temps: action.temps
+      });
     default:
       return state;
   }
