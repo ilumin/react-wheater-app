@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
+import { connect } from 'react-redux';
 import xhr from 'xhr';
+
+import './App.css';
 
 import Plot from './Plot.js';
 
@@ -107,4 +109,8 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(function(state) {
+  return {
+    location: state.location
+  }
+})(App);

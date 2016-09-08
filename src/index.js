@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+
 import App from './App';
+
+import mainReducer from './reducers';
+
 import './index.css';
 
-var store = createStore(function() {});
+var store = createStore(mainReducer);
 
 ReactDOM.render(
   <Provider store={store}>
