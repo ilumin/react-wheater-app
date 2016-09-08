@@ -25,29 +25,7 @@ class App extends Component {
     var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
     var urlSuffix = '&APPID=093ff3b8482fa6f460bbf58e0544535a&units=metric';
     var url = urlPrefix + location + urlSuffix;
-    var self = this;
-
-    xhr({
-      url: url
-    }, function (err, data) {
-      var body = JSON.parse(data.body);
-      var list = body.list;
-      var dates = [];
-      var temps = [];
-      for (var i = 0; i < list.length; i++) {
-        dates.push(list[i].dt_txt);
-        temps.push(list[i].main.temp);
-      }
-
-      self.setState({
-        data: body,
-        dates: dates,
-        temps: temps,
-      });
-
-      self.props.dispatch(setSelectedDate(''));
-      self.props.dispatch(setSelectedTemp(null));
-    });
+    this.props.dispatch(fetchData(url));
   };
 
   changeLocation = (event) => {
