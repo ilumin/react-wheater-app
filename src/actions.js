@@ -15,7 +15,7 @@ export function setSelectedTemp(temp) {
 
 export function setData(data) {
   return {
-    type: 'SET_DATES',
+    type: 'SET_DATA',
     data: data
   }
 }
