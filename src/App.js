@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import xhr from 'xhr';
 
 import {
-  changeLocation
+  changeLocation,
+  setSelectedTemp,
+  setSelectedDate,
 } from './actions';
 
 import './App.css';
@@ -12,14 +14,9 @@ import Plot from './Plot.js';
 
 class App extends Component {
   state = {
-    location: '',
     data: {},
     dates: [],
     temps: [],
-    selected: {
-      date: '',
-      temp: null
-    }
   };
 
   fetchData = (event) => {
@@ -46,11 +43,10 @@ class App extends Component {
         data: body,
         dates: dates,
         temps: temps,
-        selected: {
-          date: '',
-          temp: null
-        }
       });
+
+      self.props.dispatch(setSelectedDate(''));
+      self.props.dispatch(setSelectedTemp(null));
     });
   };
 
@@ -60,12 +56,9 @@ class App extends Component {
 
   onPlotClick = (data) => {
     if (data.points) {
-      this.setState({
-        selected: {
-          date: data.points[0].x,
-          temp: data.points[0].y
-        }
-      });
+      var number = data.points[0].pointNumber;
+      self.props.dispatch(setSelectedDate(data.points[0].x));
+      self.props.dispatch(setSelectedTemp(data.points[0].y));
     }
   };
 
@@ -91,10 +84,10 @@ class App extends Component {
         {(this.state.data.list) ? (
           <div className="wrapper">
             <p className="temp-wrapper">
-              <span className="temp">{ this.state.selected.temp ? this.state.selected.temp : currentTemp }</span>
+              <span className="temp">{ this.props.selected.temp ? this.props.selected.temp : currentTemp }</span>
               <span className="temp-symbol">°C</span>
               <span className="temp-date">
-                { this.state.selected.temp ? this.state.selected.date : ''}
+                { this.props.selected.temp ? this.props.selected.date : ''}
               </span>
             </p>
             <h2>Forecast</h2>
@@ -113,7 +106,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    location: state.location
+    location: state.location,
+    selected: state.selected
   }
 }
 
