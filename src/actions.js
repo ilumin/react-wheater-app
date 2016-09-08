@@ -40,3 +40,26 @@ export function changeLocation(location) {
     location: location
   }
 }
+
+export function fetchData() {
+  return function thunk(dispatch) {
+    xhr({
+      url: url
+    }, function (err, data) {
+      var body = JSON.parse(data.body);
+      var list = body.list;
+      var dates = [];
+      var temps = [];
+      for (var i = 0; i < list.length; i++) {
+        dates.push(list[i].dt_txt);
+        temps.push(list[i].main.temp);
+      }
+
+      self.props.dispatch(setData(body));
+      self.props.dispatch(setDates(dates));
+      self.props.dispatch(setTemps(temps));
+      self.props.dispatch(setSelectedDate(''));
+      self.props.dispatch(setSelectedTemp(null));
+    });
+  }
+}
