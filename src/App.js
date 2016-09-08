@@ -13,21 +13,15 @@ import './App.css';
 import Plot from './Plot.js';
 
 class App extends Component {
-  state = {
-    data: {},
-    dates: [],
-    temps: [],
-  };
-
   fetchData = (event) => {
     console.log("FETCH DATA");
     event.preventDefault();
-    var location = encodeURIComponent(this.props.location);
+    var location = encodeURIComponent(this.props.redux.get('location'));
     var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
     var urlSuffix = '&APPID=093ff3b8482fa6f460bbf58e0544535a&units=metric';
     var url = urlPrefix + location + urlSuffix;
     this.props.dispatch(fetchData(url));
-  };
+  }
 
   changeLocation = (event) => {
     console.log("CHANGE LOCATION");
@@ -44,9 +38,8 @@ class App extends Component {
 
   render() {
     var currentTemp = 'not loaded yet';
-    console.log("PROPS:", this.props);
-    if (this.props.data.list) {
-      currentTemp = this.props.data.list[0].main.temp;
+    if (this.props.redux.getIn(['data', 'list'])) {
+      currentTemp = this.props.redux.getIn(['data', 'list', '0', 'main', 'temp']);
     }
 
     return (
@@ -57,24 +50,24 @@ class App extends Component {
             <input
               placeholder={"City, Country"}
               type="text"
-              value={this.props.location}
+              value={this.props.redux.get('location')}
               onChange={this.changeLocation}
               />
           </label>
         </form>
-        {(this.props.data.list) ? (
+        {(this.props.redux.getIn(['data', 'list'])) ? (
           <div className="wrapper">
             <p className="temp-wrapper">
-              <span className="temp">{ this.props.selected.temp ? this.props.selected.temp : currentTemp }</span>
+              <span className="temp">{ this.props.redux.getIn(['selected', 'temp']) ? this.props.redux.getIn(['selected', 'temp']) : currentTemp }</span>
               <span className="temp-symbol">°C</span>
               <span className="temp-date">
-                { this.props.selected.temp ? this.props.selected.date : ''}
+                { this.props.redux.getIn(['selected', 'temp']) ? this.props.redux.getIn(['selected', 'date']) : ''}
               </span>
             </p>
             <h2>Forecast</h2>
             <Plot
-              xData={this.props.dates}
-              yData={this.props.temps}
+              xData={this.props.redux.get('dates')}
+              yData={this.props.redux.get('temps')}
               onPlotClick={this.onPlotClick}
               type="scatter"
             />
@@ -86,7 +79,9 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  return state.toJS()
+  return {
+    redux: state,
+  }
 }
 
 export default connect(mapStateToProps)(App);
