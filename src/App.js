@@ -20,6 +20,7 @@ class App extends Component {
   };
 
   fetchData = (event) => {
+    console.log("FETCH DATA");
     event.preventDefault();
     var location = encodeURIComponent(this.props.location);
     var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
@@ -29,10 +30,12 @@ class App extends Component {
   };
 
   changeLocation = (event) => {
+    console.log("CHANGE LOCATION");
     this.props.dispatch(changeLocation(event.target.value));
   };
 
   onPlotClick = (data) => {
+    console.log("PLOT CLICK");
     if (data.points) {
       self.props.dispatch(setSelectedDate(data.points[0].x));
       self.props.dispatch(setSelectedTemp(data.points[0].y));
@@ -41,8 +44,9 @@ class App extends Component {
 
   render() {
     var currentTemp = 'not loaded yet';
-    if (this.state.data.list) {
-      currentTemp = this.state.data.list[0].main.temp;
+    console.log("PROPS:", this.props);
+    if (this.props.data.list) {
+      currentTemp = this.props.data.list[0].main.temp;
     }
 
     return (
@@ -58,7 +62,7 @@ class App extends Component {
               />
           </label>
         </form>
-        {(this.state.data.list) ? (
+        {(this.props.data.list) ? (
           <div className="wrapper">
             <p className="temp-wrapper">
               <span className="temp">{ this.props.selected.temp ? this.props.selected.temp : currentTemp }</span>
@@ -69,8 +73,8 @@ class App extends Component {
             </p>
             <h2>Forecast</h2>
             <Plot
-              xData={this.state.dates}
-              yData={this.state.temps}
+              xData={this.props.dates}
+              yData={this.props.temps}
               onPlotClick={this.onPlotClick}
               type="scatter"
             />
@@ -84,7 +88,10 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     location: state.location,
-    selected: state.selected
+    selected: state.selected,
+    data: state.data,
+    dates: state.dates,
+    temps: state.temps,
   }
 }
 
