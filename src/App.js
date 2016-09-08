@@ -14,7 +14,6 @@ import Plot from './Plot.js';
 
 export class App extends React.Component {
   fetchData = (event) => {
-    console.log("FETCH DATA");
     event.preventDefault();
     var location = encodeURIComponent(this.props.redux.get('location'));
     var urlPrefix = 'http://api.openweathermap.org/data/2.5/forecast?q=';
@@ -24,12 +23,10 @@ export class App extends React.Component {
   }
 
   changeLocation = (event) => {
-    console.log("CHANGE LOCATION");
     this.props.dispatch(changeLocation(event.target.value));
   };
 
   onPlotClick = (data) => {
-    console.log("PLOT CLICK");
     if (data.points) {
       self.props.dispatch(setSelectedDate(data.points[0].x));
       self.props.dispatch(setSelectedTemp(data.points[0].y));
