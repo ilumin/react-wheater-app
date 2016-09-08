@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import xhr from 'xhr';
 
 import {
   changeLocation,
   setSelectedTemp,
   setSelectedDate,
+  fetchData,
 } from './actions';
 
 import './App.css';
@@ -34,7 +34,6 @@ class App extends Component {
 
   onPlotClick = (data) => {
     if (data.points) {
-      var number = data.points[0].pointNumber;
       self.props.dispatch(setSelectedDate(data.points[0].x));
       self.props.dispatch(setSelectedTemp(data.points[0].y));
     }
