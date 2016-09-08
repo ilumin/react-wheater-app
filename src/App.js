@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -12,7 +12,7 @@ import './App.css';
 
 import Plot from './Plot.js';
 
-class App extends Component {
+export class App extends React.Component {
   fetchData = (event) => {
     console.log("FETCH DATA");
     event.preventDefault();
