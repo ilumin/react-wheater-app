@@ -1,3 +1,4 @@
+import xhr from 'xhr';
 
 export function setSelectedDate(date) {
   return {
@@ -41,7 +42,7 @@ export function changeLocation(location) {
   }
 }
 
-export function fetchData() {
+export function fetchData(url) {
   return function thunk(dispatch) {
     xhr({
       url: url
