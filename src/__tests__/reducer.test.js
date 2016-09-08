@@ -33,4 +33,21 @@ describe('mainReducer', () => {
     }))
   });
 
+  it('should react to an action with the type SET_DATES', () => {
+    var dates = ['A', 'B'];
+    expect(mainReducer(undefined, {
+      type: 'SET_DATES',
+      dates: dates
+    })).toEqual(fromJS({
+      location: '',
+      data: {},
+      dates: dates,
+      temps: [],
+      selected: {
+        date: '',
+        temp: null
+      }
+    }))
+  });
+
 });
